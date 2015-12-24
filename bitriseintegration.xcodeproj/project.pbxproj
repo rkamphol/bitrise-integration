@@ -133,6 +133,7 @@
 				E137A4CB1C0C948500BA325B /* Resources */,
 				5AA39139B0F515224E6C1453 /* Embed Pods Frameworks */,
 				740FCE76AAA7E0EE799A9D32 /* Copy Pods Resources */,
+				E1A9A12C1C2ACF2300235188 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -265,6 +266,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		E1A9A12C1C2ACF2300235188 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\n\ngit=`sh /etc/profile; which git`\nSHA1=`\"$git\" rev-parse --short HEAD`\n\n/usr/libexec/PlistBuddy -c \"Delete :BUILD_SHA1\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Add :BUILD_SHA1 string \\\"${SHA1}\\\"\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\necho \"Build SHA1 is (${SHA1})\"\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
