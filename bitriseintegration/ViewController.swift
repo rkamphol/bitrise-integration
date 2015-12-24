@@ -14,6 +14,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("test versioning 3")
+
+        if let commitSHA1 = NSBundle.mainBundle().objectForInfoDictionaryKey("COMMIT_SHA1") {
+            print("commit sha-1 for build is : \(commitSHA1)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
